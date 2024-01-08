@@ -20,6 +20,7 @@ import {
   setFailed,
   setOutput,
   startGroup,
+  exportVariable,
 } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
 import { existsSync } from "fs";
@@ -101,7 +102,7 @@ async function run() {
 
       const hostname = target ? `${target}.web.app` : `${projectId}.web.app`;
       const url = `https://${hostname}/`;
-      await finish({
+      finish({
         details_url: url,
         conclusion: "success",
         output: {
@@ -145,8 +146,10 @@ async function run() {
       await postChannelSuccessComment(octokit, context, deployment, commitId);
     }
 
-    console.log('hello---------------')
-    await finish({
+    console.log("hello---------------");
+    exportVariable("xxxxxxxxxxxxxxx", urls[0]);
+    exportVariable("yyyyyyyyyyyyyy", expireTime);
+    finish({
       details_url: urls[0],
       conclusion: "success",
       output: {
@@ -157,7 +160,7 @@ async function run() {
   } catch (e) {
     setFailed(e.message);
 
-    await finish({
+    finish({
       conclusion: "failure",
       output: {
         title: "Deploy preview failed",
