@@ -145,6 +145,7 @@ async function run() {
       await postChannelSuccessComment(octokit, context, deployment, commitId);
     }
 
+    console.log('hello---------------')
     await finish({
       details_url: urls[0],
       conclusion: "success",
